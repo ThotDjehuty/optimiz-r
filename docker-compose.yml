@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # Development environment with Jupyter
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: optimizr-dev
+    volumes:
+      - .:/workspace
+      - cargo-cache:/root/.cargo/registry
+      - target-cache:/workspace/target
+    ports:
+      - "8889:8888"  # Jupyter (host:8889 -> container:8888)
+    environment:
+      - RUST_BACKTRACE=1
+      - PYTHONUNBUFFERED=1
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    stdin_open: true
+    tty: true
+
+  # Testing environment
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: optimizr-test
+    volumes:
+      - .:/workspace
+      - cargo-cache:/root/.cargo/registry
+      - target-cache:/workspace/target
+    environment:
+      - RUST_BACKTRACE=1
+      - PYTHONUNBUFFERED=1
+    command: >
+      sh -c "
+        echo '=== Running Rust tests ===' &&
+        cargo test --release &&
+        echo '=== Running Python tests ===' &&
+        pytest tests/ -v --tb=short
+      "
+
+  # Build wheels for distribution
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: optimizr-build
+    volumes:
+      - .:/workspace
+      - ./dist:/workspace/dist
+      - cargo-cache:/root/.cargo/registry
+      - target-cache:/workspace/target
+    environment:
+      - RUST_BACKTRACE=1
+    command: maturin build --release --out dist
+
+  # Documentation generator
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: optimizr-docs
+    volumes:
+      - .:/workspace
+      - ./docs:/workspace/docs
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "
+        pip install --no-cache-dir mkdocs mkdocs-material &&
+        mkdocs serve --dev-addr=0.0.0.0:8000
+      "
+
+volumes:
+  cargo-cache:
+  target-cache:
+
+networks:
+  default:
+    name: optimizr-network

@@ -29,14 +29,17 @@ use pyo3::types::PyModule;
 pub mod core;
 pub mod functional;
 
-// Refactored modules with advanced patterns
-pub mod hmm_refactored;
-pub mod mcmc_refactored;
-pub mod de_refactored;
+// New modular structure (recommended)
+pub mod hmm;
+pub mod mcmc;
+pub mod de;
 
-// Original modules for backward compatibility
-mod hmm;
-mod mcmc;
+// Legacy modules for backward compatibility
+mod hmm_legacy;
+mod mcmc_legacy;
+mod hmm_refactored;
+mod mcmc_refactored;
+mod de_refactored;
 mod differential_evolution;
 mod grid_search;
 mod information_theory;
@@ -44,38 +47,30 @@ mod information_theory;
 /// OptimizR Python module
 #[pymodule]
 fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
-    // ===== Original API (Backward Compatible) =====
+    // ===== New Modular API (Recommended) =====
     
-    // HMM functions
+    // HMM functions (modular structure)
     m.add_class::<hmm::HMMParams>()?;
     m.add_function(wrap_pyfunction!(hmm::fit_hmm, m)?)?;
     m.add_function(wrap_pyfunction!(hmm::viterbi_decode, m)?)?;
     
-    // MCMC functions
+    // MCMC functions (modular structure)
     m.add_function(wrap_pyfunction!(mcmc::mcmc_sample, m)?)?;
+    m.add_function(wrap_pyfunction!(mcmc::adaptive_mcmc_sample, m)?)?;
     
-    // Optimization functions
+    // DE functions (modular structure - uses de_refactored for now)
+    m.add_class::<de::DEResult>()?;
+    m.add_function(wrap_pyfunction!(de::differential_evolution, m)?)?;
+    
+    // ===== Legacy API (Backward Compatible) =====
+    
+    // Legacy optimization functions
     m.add_function(wrap_pyfunction!(differential_evolution::differential_evolution, m)?)?;
     m.add_function(wrap_pyfunction!(grid_search::grid_search, m)?)?;
     
     // Information theory functions
     m.add_function(wrap_pyfunction!(information_theory::mutual_information, m)?)?;
     m.add_function(wrap_pyfunction!(information_theory::shannon_entropy, m)?)?;
-    
-    // ===== New Refactored API (Advanced Features) =====
-    
-    // Refactored HMM with trait-based design
-    m.add_class::<hmm_refactored::HMMParams>()?;
-    m.add_function(wrap_pyfunction!(hmm_refactored::fit_hmm, m)?)?;
-    m.add_function(wrap_pyfunction!(hmm_refactored::viterbi_decode, m)?)?;
-    
-    // Refactored MCMC with strategy pattern
-    m.add_function(wrap_pyfunction!(mcmc_refactored::mcmc_sample, m)?)?;
-    m.add_function(wrap_pyfunction!(mcmc_refactored::adaptive_mcmc_sample, m)?)?;
-    
-    // Refactored DE with parallel support and multiple strategies
-    m.add_class::<de_refactored::DEResult>()?;
-    m.add_function(wrap_pyfunction!(de_refactored::differential_evolution, m)?)?;
     
     Ok(())
 }

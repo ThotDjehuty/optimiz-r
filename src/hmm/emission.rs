@@ -3,7 +3,7 @@
 //! This module defines the EmissionModel trait and provides
 //! implementations for different probability distributions.
 
-use crate::core::{OptimizrError, Result};
+use crate::core::Result;
 use std::f64;
 
 /// Trait for emission probability models

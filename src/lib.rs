@@ -21,6 +21,8 @@
 //! - `differential_evolution`: Global optimization algorithm
 //! - `grid_search`: Exhaustive parameter space search
 //! - `information_theory`: Mutual information and entropy calculations
+//! - `sparse_optimization`: Sparse PCA, Box-Tao, Elastic Net
+//! - `risk_metrics`: Portfolio risk analysis and Hurst exponent
 
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
@@ -33,6 +35,8 @@ pub mod functional;
 pub mod hmm;
 pub mod mcmc;
 pub mod de;
+pub mod sparse_optimization;
+pub mod risk_metrics;
 
 // Legacy modules for backward compatibility
 mod hmm_legacy;
@@ -71,6 +75,19 @@ fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Information theory functions
     m.add_function(wrap_pyfunction!(information_theory::mutual_information, m)?)?;
     m.add_function(wrap_pyfunction!(information_theory::shannon_entropy, m)?)?;
+    
+    // ===== New Optimization Algorithms =====
+    
+    // Sparse optimization functions
+    m.add_function(wrap_pyfunction!(sparse_optimization::sparse_pca_py, m)?)?;
+    m.add_function(wrap_pyfunction!(sparse_optimization::box_tao_decomposition_py, m)?)?;
+    m.add_function(wrap_pyfunction!(sparse_optimization::elastic_net_py, m)?)?;
+    
+    // Risk metrics functions
+    m.add_function(wrap_pyfunction!(risk_metrics::hurst_exponent_py, m)?)?;
+    m.add_function(wrap_pyfunction!(risk_metrics::compute_risk_metrics_py, m)?)?;
+    m.add_function(wrap_pyfunction!(risk_metrics::estimate_half_life_py, m)?)?;
+    m.add_function(wrap_pyfunction!(risk_metrics::bootstrap_returns_py, m)?)?;
     
     Ok(())
 }

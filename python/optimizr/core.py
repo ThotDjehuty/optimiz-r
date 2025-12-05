@@ -14,6 +14,13 @@ try:
         grid_search as _rust_grid_search,
         mutual_information as _rust_mutual_information,
         shannon_entropy as _rust_shannon_entropy,
+        sparse_pca_py,
+        box_tao_decomposition_py,
+        elastic_net_py,
+        hurst_exponent_py,
+        compute_risk_metrics_py,
+        estimate_half_life_py,
+        bootstrap_returns_py,
     )
     RUST_AVAILABLE = True
 except ImportError:

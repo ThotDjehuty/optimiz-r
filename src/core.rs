@@ -11,6 +11,9 @@ pub enum OptimizrError {
     #[error("Invalid parameter: {0}")]
     InvalidParameter(String),
     
+    #[error("Invalid input: {0}")]
+    InvalidInput(String),
+    
     #[error("Dimension mismatch: expected {expected}, got {actual}")]
     DimensionMismatch { expected: usize, actual: usize },
     
@@ -29,6 +32,9 @@ pub enum OptimizrError {
 
 /// Result type for OptimizR operations
 pub type Result<T> = std::result::Result<T, OptimizrError>;
+
+/// Alias for OptimizR result type (legacy compatibility)
+pub type OptimizrResult<T> = Result<T>;
 
 /// Trait for optimization algorithms
 pub trait Optimizer {

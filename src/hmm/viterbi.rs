@@ -2,7 +2,7 @@
 //!
 //! Implements the Viterbi algorithm for HMM inference.
 
-use super::config::HMMConfig;
+
 use super::emission::EmissionModel;
 use super::model::HMM;
 use crate::core::Result;

@@ -34,6 +34,7 @@ pub mod core;
 pub mod functional;
 pub mod maths_toolkit; // Mathematical utilities
 pub mod timeseries_utils; // Time-series integration helpers
+pub mod rust_objectives; // Rust-native objectives for parallel evaluation
 
 // Modular structure (trait-based, generic)
 pub mod de;
@@ -77,6 +78,10 @@ fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
         differential_evolution::differential_evolution,
         m
     )?)?;
+    m.add_function(wrap_pyfunction!(
+        differential_evolution::parallel_differential_evolution_rust,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(grid_search::grid_search, m)?)?;
 
     // Information theory functions
@@ -101,6 +106,9 @@ fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
 
     // Time-series utility functions
     timeseries_utils::python_bindings::register_python_functions(m)?;
+
+    // Rust-native benchmark functions
+    rust_objectives::register_benchmark_functions(m)?;
 
     Ok(())
 }

@@ -11,6 +11,7 @@ try:
     from optimizr._core import (
         mcmc_sample as _rust_mcmc_sample,
         differential_evolution as _rust_differential_evolution,
+        parallel_differential_evolution_rust,
         grid_search as _rust_grid_search,
         mutual_information as _rust_mutual_information,
         shannon_entropy as _rust_shannon_entropy,
@@ -28,6 +29,12 @@ try:
         return_statistics_py,
         create_lagged_features_py,
         rolling_correlation_py,
+        # Benchmark functions
+        Sphere,
+        Rosenbrock,
+        Rastrigin,
+        Ackley,
+        Griewank,
     )
     RUST_AVAILABLE = True
 except ImportError:

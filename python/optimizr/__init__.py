@@ -13,6 +13,7 @@ from optimizr.hmm import HMM
 from optimizr.core import (
     mcmc_sample,
     differential_evolution,
+    parallel_differential_evolution_rust,
     grid_search,
     mutual_information,
     shannon_entropy,
@@ -30,6 +31,12 @@ from optimizr.core import (
     return_statistics_py,
     create_lagged_features_py,
     rolling_correlation_py,
+    # Benchmark functions
+    Sphere,
+    Rosenbrock,
+    Rastrigin,
+    Ackley,
+    Griewank,
 )
 
 # Try to import maths_toolkit from Rust backend
@@ -44,6 +51,7 @@ __all__ = [
     "HMM",
     "mcmc_sample",
     "differential_evolution",
+    "parallel_differential_evolution_rust",
     "grid_search",
     "mutual_information",
     "shannon_entropy",
@@ -61,5 +69,11 @@ __all__ = [
     "return_statistics_py",
     "create_lagged_features_py",
     "rolling_correlation_py",
+    # Benchmark functions
+    "Sphere",
+    "Rosenbrock",
+    "Rastrigin",
+    "Ackley",
+    "Griewank",
     "maths_toolkit",
 ]

@@ -39,12 +39,16 @@ from optimizr.core import (
     Griewank,
 )
 
-# Try to import maths_toolkit from Rust backend
+# Try to import maths_toolkit and mean_field from Rust backend
 try:
     from optimizr import _core
     maths_toolkit = _core
+    MFGConfig = _core.MFGConfigPy
+    solve_mfg_1d_rust = _core.solve_mfg_1d_rust
 except (ImportError, AttributeError):
     maths_toolkit = None
+    MFGConfig = None
+    solve_mfg_1d_rust = None
 
 __version__ = "0.2.0"
 __all__ = [
@@ -76,4 +80,7 @@ __all__ = [
     "Ackley",
     "Griewank",
     "maths_toolkit",
+    # Mean Field Games
+    "MFGConfig",
+    "solve_mfg_1d_rust",
 ]

@@ -112,5 +112,8 @@ fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Rust-native benchmark functions
     rust_objectives::register_benchmark_functions(m)?;
 
+    // Mean Field Games functions
+    mean_field::python_bindings::register_python_functions(m)?;
+
     Ok(())
 }

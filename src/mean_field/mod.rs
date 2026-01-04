@@ -52,6 +52,9 @@ pub mod forward_backward;
 pub mod nash_equilibrium;
 pub mod optimal_transport;
 
+#[cfg(feature = "python-bindings")]
+pub mod python_bindings;
+
 pub use types::*;
 pub use pde_solvers::*;
 pub use forward_backward::*;

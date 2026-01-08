@@ -44,6 +44,69 @@ pub fn solve_hjb_py(
     ))
 }
 
+/// Solve HJB equation and return FULL value functions
+/// 
+/// Returns: (lower_bound, upper_bound, residual, iterations, x_grid, value, gradient, hessian)
+/// where x_grid, value, gradient, hessian are numpy arrays
+#[pyfunction]
+#[pyo3(signature = (kappa, theta, sigma, rho=0.04, transaction_cost=0.001, n_points=200, max_iter=2000, tolerance=1e-6, n_std=4.0))]
+pub fn solve_hjb_full_py(
+    py: Python,
+    kappa: f64,
+    theta: f64,
+    sigma: f64,
+    rho: f64,
+    transaction_cost: f64,
+    n_points: usize,
+    max_iter: usize,
+    tolerance: f64,
+    n_std: f64,
+) -> PyResult<(
+    f64,                      // lower_boundary
+    f64,                      // upper_boundary
+    f64,                      // residual
+    usize,                    // iterations
+    Py<PyArray1<f64>>,        // x_grid
+    Py<PyArray1<f64>>,        // value function
+    Py<PyArray1<f64>>,        // gradient (dV/dx)
+    Py<PyArray1<f64>>,        // hessian (d²V/dx²)
+)> {
+    let config = HJBConfig {
+        kappa,
+        theta,
+        sigma,
+        rho,
+        transaction_cost,
+        n_points,
+        max_iter,
+        tolerance,
+        n_std,
+    };
+    
+    let solver = HJBSolver::new(config)
+        .map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("{}", e)))?;
+    
+    let result = solver.solve()
+        .map_err(|e| PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(format!("{}", e)))?;
+    
+    // Convert ndarray to numpy arrays
+    let x_grid = PyArray1::from_vec_bound(py, result.x.to_vec());
+    let value = PyArray1::from_vec_bound(py, result.value.to_vec());
+    let gradient = PyArray1::from_vec_bound(py, result.gradient.to_vec());
+    let hessian = PyArray1::from_vec_bound(py, result.hessian.to_vec());
+    
+    Ok((
+        result.lower_boundary,
+        result.upper_boundary,
+        result.residual,
+        result.iterations,
+        x_grid.unbind(),
+        value.unbind(),
+        gradient.unbind(),
+        hessian.unbind(),
+    ))
+}
+
 /// Estimate Ornstein-Uhlenbeck parameters
 #[pyfunction]
 #[pyo3(signature = (spread, dt=1.0/252.0))]
@@ -232,6 +295,7 @@ pub fn test_pair_py(
 
 pub fn register_py_module(m: &Bound<'_, pyo3::types::PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(solve_hjb_py, m)?)?;
+    m.add_function(wrap_pyfunction!(solve_hjb_full_py, m)?)?;  // NEW: Full value functions
     m.add_function(wrap_pyfunction!(estimate_ou_params_py, m)?)?;
     m.add_function(wrap_pyfunction!(engle_granger_test_py, m)?)?;
     m.add_function(wrap_pyfunction!(hurst_exponent_py, m)?)?;

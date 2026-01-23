@@ -32,15 +32,26 @@
 //! 2. Upwind schemes for stability
 //! 3. Iterative convergence to viscosity solution
 
+pub mod backtest;
 pub mod hjb_solver;
 pub mod jump_diffusion;
+pub mod kalman_filter;
+#[cfg(feature = "python-bindings")]
+pub mod kalman_py_bindings;
 pub mod mrsjd;
+pub mod ou_estimator;
+#[cfg(feature = "python-bindings")]
+pub mod py_bindings;
 pub mod regime_switching;
 pub mod viscosity;
 
 pub use hjb_solver::{HJBConfig, HJBResult, HJBSolver};
 pub use jump_diffusion::{
     JumpDiffusionConfig, JumpDiffusionResult, JumpDiffusionSolver, JumpDistribution,
+};
+pub use kalman_filter::{
+    FilterResult, KalmanFilter, KalmanState, LinearObservation, LinearStateTransition,
+    ObservationModel, RTSSmoother, SmootherResult, StateTransitionModel, UnscentedKalmanFilter,
 };
 pub use mrsjd::{MRSJDConfig, MRSJDResult, MRSJDSolver, RegimeJumpParameters};
 pub use regime_switching::{

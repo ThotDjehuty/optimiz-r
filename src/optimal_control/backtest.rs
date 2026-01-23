@@ -153,7 +153,7 @@ pub fn backtest_optimal_switching(
     
     // Maximum drawdown
     let mut cummax = pnl[0];
-    let mut max_dd = 0.0;
+    let mut max_dd: f64 = 0.0;
     for &p in &pnl {
         cummax = cummax.max(p);
         let dd = (p - cummax) / (cummax.abs() + 1e-10);

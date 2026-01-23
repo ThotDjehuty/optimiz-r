@@ -3,6 +3,10 @@
 use pyo3::prelude::*;
 use numpy::{PyArray1, PyReadonlyArray1};
 use crate::optimal_control::*;
+use crate::optimal_control::ou_estimator::estimate_ou_params;
+use crate::optimal_control::backtest::backtest_optimal_switching;
+use crate::risk_metrics::hurst_exponent;
+// use crate::risk_metrics::engle_granger_test;  // Not implemented
 
 /// Solve HJB equation for optimal switching boundaries
 #[pyfunction]
@@ -123,6 +127,8 @@ pub fn estimate_ou_params_py(
 }
 
 /// Engle-Granger cointegration test
+// TODO: Fix imports - engle_granger_test not found
+/*
 #[pyfunction]
 #[pyo3(signature = (y, x, significance=0.05))]
 pub fn engle_granger_test_py(
@@ -143,6 +149,7 @@ pub fn engle_granger_test_py(
         result.is_cointegrated,
     ))
 }
+*/
 
 /// Calculate Hurst exponent
 #[pyfunction]
@@ -152,8 +159,10 @@ pub fn hurst_exponent_py(
     max_lag: usize,
 ) -> PyResult<f64> {
     let series = series.as_slice()?;
+    let window_sizes: Vec<usize> = (5..=max_lag).step_by(3).collect();
     
-    hurst_exponent(series, max_lag)
+    hurst_exponent(&ndarray::Array1::from_vec(series.to_vec()), &window_sizes)
+        .map(|result| result.hurst_exponent)
         .map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("{}", e)))
 }
 
@@ -185,6 +194,8 @@ pub fn backtest_optimal_switching_py(
 }
 
 /// Test a pair comprehensively (cointegration + OU + HJB + backtest)
+// TODO: Fix imports - engle_granger_test not found
+/*
 #[pyfunction]
 #[pyo3(signature = (y, x, significance=0.05, min_hurst=0.45, transaction_cost=0.001))]
 pub fn test_pair_py(
@@ -209,8 +220,9 @@ pub fn test_pair_py(
     }
     
     // 2. Hurst exponent
-    let h = match hurst_exponent(&coint_result.spread, 20) {
-        Ok(h) => h,
+    let window_sizes: Vec<usize> = (5..=20).step_by(3).collect();
+    let h: f64 = match risk_hurst_exponent(&ndarray::Array1::from_vec(coint_result.spread.clone()), &window_sizes) {
+        Ok(result) => result.hurst_exponent,
         Err(_) => return Ok(None),
     };
     
@@ -292,14 +304,19 @@ pub fn test_pair_py(
     
     Ok(Some(result.into()))
 }
+*/
 
 pub fn register_py_module(m: &Bound<'_, pyo3::types::PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(solve_hjb_py, m)?)?;
     m.add_function(wrap_pyfunction!(solve_hjb_full_py, m)?)?;  // NEW: Full value functions
     m.add_function(wrap_pyfunction!(estimate_ou_params_py, m)?)?;
-    m.add_function(wrap_pyfunction!(engle_granger_test_py, m)?)?;
+    // m.add_function(wrap_pyfunction!(engle_granger_test_py, m)?)?;  // TODO: Fix imports
     m.add_function(wrap_pyfunction!(hurst_exponent_py, m)?)?;
     m.add_function(wrap_pyfunction!(backtest_optimal_switching_py, m)?)?;
-    m.add_function(wrap_pyfunction!(test_pair_py, m)?)?;
+    // m.add_function(wrap_pyfunction!(test_pair_py, m)?)?;  // TODO: Fix imports
+    
+    // Register Kalman filter classes and functions
+    crate::optimal_control::kalman_py_bindings::register_python_functions(m)?;
+    
     Ok(())
 }

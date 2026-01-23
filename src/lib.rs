@@ -115,5 +115,8 @@ fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Mean Field Games functions
     mean_field::python_bindings::register_python_functions(m)?;
 
+    // Optimal Control functions (includes Kalman Filter)
+    optimal_control::py_bindings::register_py_module(m)?;
+
     Ok(())
 }

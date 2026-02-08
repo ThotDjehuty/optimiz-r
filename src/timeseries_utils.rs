@@ -2,7 +2,7 @@
 //!
 //! Helper functions for common workflows combining time-series preprocessing
 //! with optimization and statistical inference. Designed to work seamlessly
-//! with Polaroid time-series operations and OptimizR algorithms.
+//! with Polarway time-series operations and OptimizR algorithms.
 //!
 //! # Use Cases
 //!

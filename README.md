@@ -469,7 +469,7 @@ Python script examples:
 
 - [HMM Regime Detection](examples/hmm_regime_detection.py)
 - [Parallel DE Benchmark](examples/parallel_de_benchmark.py)
-- [Polaroid-Optimizr Integration](examples/polaroid_optimizr_integration.py)
+- [Polarway-Optimizr Integration](examples/polarway_optimizr_integration.py)
 - [Timeseries Integration](examples/timeseries_integration.py)
 
 ### Mathematical Background

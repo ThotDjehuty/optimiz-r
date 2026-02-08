@@ -14,7 +14,7 @@ Completed comprehensive enhancement suite for OptimizR v0.2.0, implementing all 
 2. ✅ **Rust Parallelization** (Priority 2)
 3. ✅ **SHADE Algorithm** (Priority 1)
 
-Additionally created integration examples combining Polaroid + OptimizR workflows.
+Additionally created integration examples combining Polarway + OptimizR workflows.
 
 ---
 
@@ -41,7 +41,7 @@ Additionally created integration examples combining Polaroid + OptimizR workflow
 - All functions tested and working
 
 **Impact**:
-- Enables Polaroid → OptimizR workflows
+- Enables Polarway → OptimizR workflows
 - Simplifies regime detection with HMM
 - Streamlines pairs trading analysis
 
@@ -130,12 +130,12 @@ Additionally created integration examples combining Polaroid + OptimizR workflow
 
 ### 4. Integration Examples (Included with parallelization)
 
-**Purpose**: Demonstrate Polaroid + OptimizR workflows.
+**Purpose**: Demonstrate Polarway + OptimizR workflows.
 
 **Implementation**:
-- `examples/polaroid_optimizr_integration.py` (500+ lines)
+- `examples/polarway_optimizr_integration.py` (500+ lines)
 - 4 comprehensive workflows:
-  1. **Regime Detection**: Polaroid features → HMM → regime classification
+  1. **Regime Detection**: Polarway features → HMM → regime classification
   2. **Strategy Optimization**: Moving average crossover with DE
   3. **Risk Analysis**: Portfolio with rolling metrics
   4. **Pairs Trading**: Complete pipeline with cointegration check
@@ -148,11 +148,11 @@ Additionally created integration examples combining Polaroid + OptimizR workflow
 
 **Impact**:
 - End-to-end examples for financial analysis
-- Demonstrates Polaroid + OptimizR synergy
+- Demonstrates Polarway + OptimizR synergy
 - Ready for production adaptation
 
 **Files**:
-- `examples/polaroid_optimizr_integration.py`
+- `examples/polarway_optimizr_integration.py`
 - `examples/timeseries_integration.py`
 - `examples/parallel_de_benchmark.py`
 
@@ -223,7 +223,7 @@ All commits pushed to origin/main ✅
 
 All enhancements align with OptimizR v0.3.0 roadmap:
 
-- ✅ **Time-series integration**: Enable Polaroid workflows
+- ✅ **Time-series integration**: Enable Polarway workflows
 - ✅ **Parallelization**: Unlock Rayon infrastructure
 - ✅ **SHADE**: State-of-the-art adaptive DE
 

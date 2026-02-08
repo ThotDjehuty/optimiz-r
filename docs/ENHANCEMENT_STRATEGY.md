@@ -1,7 +1,7 @@
 # OptimizR Enhancement Strategy
 
 **Date**: January 2, 2025  
-**Context**: Post-Polaroid Phase 4, exploring integration and improvements  
+**Context**: Post-Polarway Phase 4, exploring integration and improvements  
 **Based On**: v0.2.0 codebase review, roadmap analysis, synergy opportunities
 
 ## Current State Analysis
@@ -58,14 +58,14 @@
    - Simulated Annealing
    - Ant Colony Optimization
 
-## Synergy Opportunities: Polaroid + OptimizR
+## Synergy Opportunities: Polarway + OptimizR
 
 ### 1. Time-Series Feature Engineering for HMM
-**Description**: Use Polaroid's time-series operations to create features for regime detection
+**Description**: Use Polarway's time-series operations to create features for regime detection
 
 **Implementation**:
 ```python
-# Polaroid: Fast feature creation
+# Polarway: Fast feature creation
 df = client.lag(['price'], periods=1)  # Lagged prices
 df = client.pct_change(['price'], periods=1)  # Returns
 df = client.diff(['price'], periods=1)  # Price changes
@@ -78,7 +78,7 @@ states = hmm.predict(returns)
 ```
 
 **Value**:
-- Polaroid provides fast feature engineering (50-200× faster for large datasets)
+- Polarway provides fast feature engineering (50-200× faster for large datasets)
 - OptimizR provides statistical inference (HMM regime detection)
 - Combined: Real-time regime switching for trading strategies
 
@@ -87,7 +87,7 @@ states = hmm.predict(returns)
 
 **Implementation**:
 ```python
-# Polaroid: Efficient return calculation
+# Polarway: Efficient return calculation
 df = client.pct_change(['price'], periods=1)
 returns = df['price_pct_change'].to_numpy()
 
@@ -98,7 +98,7 @@ risk_metrics = compute_risk_metrics(returns)  # Comprehensive suite
 ```
 
 **Value**:
-- Fast preprocessing (Polaroid) + sophisticated analysis (OptimizR)
+- Fast preprocessing (Polarway) + sophisticated analysis (OptimizR)
 - Useful for pairs trading, mean-reversion strategies
 - Real-time risk monitoring
 
@@ -107,7 +107,7 @@ risk_metrics = compute_risk_metrics(returns)  # Comprehensive suite
 
 **Implementation**:
 ```python
-# Polaroid: Multi-asset feature creation
+# Polarway: Multi-asset feature creation
 df = client.lag(['spy_price', 'vix'], periods=[1, 5, 20])
 df = client.pct_change(['spy_price'], periods=1)
 
@@ -127,7 +127,7 @@ value_fn = solve_hjb_regime_switching(...)
 
 **Implementation**:
 ```python
-# Polaroid: Backtest execution (fast data ops)
+# Polarway: Backtest execution (fast data ops)
 def backtest_strategy(params):
     df = client.lag(['price'], periods=int(params[0]))
     # ... strategy logic ...
@@ -143,7 +143,7 @@ result = differential_evolution(
 ```
 
 **Value**:
-- Polaroid handles heavy data processing
+- Polarway handles heavy data processing
 - OptimizR finds optimal parameters
 - 74-88× faster than SciPy DE
 
@@ -258,14 +258,14 @@ impl SHADEMemory {
 
 ### Priority 3: Time-Series Integration Helpers
 
-**Problem**: Using Polaroid + OptimizR requires manual glue code
+**Problem**: Using Polarway + OptimizR requires manual glue code
 
 **Solution**: Create helper functions for common time-series + optimization patterns
 
 **Implementation Strategy**:
 1. Add `timeseries_utils` module to OptimizR
 2. Functions for common workflows
-3. Optional Polaroid integration (via feature flag)
+3. Optional Polarway integration (via feature flag)
 
 **Code Outline**:
 ```rust
@@ -350,7 +350,7 @@ result = tsu.optimize_strategy_params(
 
 1. **Session 1 (Current)**: Time-Series Integration Helpers (1-2 hours)
    - Low effort, immediate value
-   - Makes Polaroid + OptimizR integration obvious
+   - Makes Polarway + OptimizR integration obvious
    - Creates examples for documentation
 
 2. **Session 2**: Enable Rust-Native Parallelization (1-2 hours)
@@ -372,7 +372,7 @@ result = tsu.optimize_strategy_params(
 For each enhancement:
 1. **Unit tests**: Algorithm correctness (sphere function, Rosenbrock)
 2. **Benchmarks**: Performance comparison (before/after)
-3. **Integration tests**: Polaroid + OptimizR workflows
+3. **Integration tests**: Polarway + OptimizR workflows
 4. **Documentation**: Usage examples, API docs
 
 ## Git Commit Strategy (per MANDATORY rules)
@@ -404,4 +404,4 @@ Each enhancement gets:
 
 ---
 
-**Next Action**: Implement Priority 3 (Time-Series Integration Helpers) as it's lowest effort with immediate value for demonstrating Polaroid + OptimizR synergy.
+**Next Action**: Implement Priority 3 (Time-Series Integration Helpers) as it's lowest effort with immediate value for demonstrating Polarway + OptimizR synergy.

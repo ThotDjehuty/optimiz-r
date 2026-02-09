@@ -20,6 +20,17 @@ states = model.predict(returns)
 print(np.unique(states, return_counts=True))
 ```
 
+### With time-series helpers
+
+```python
+from optimizr import prepare_for_hmm_py
+
+features = prepare_for_hmm_py(prices, lag_periods=[1, 5, 20])
+hmm = HMM(n_states=3).fit(features, n_iterations=120)
+```
+
+Use rolling Hurst/half-life from `timeseries_utils` as additional features for richer regime classification.
+
 ## Notes
 - Uses Rust backend when available; falls back to Python.
 - `fit` runs Baum-Welch; `predict` runs Viterbi.

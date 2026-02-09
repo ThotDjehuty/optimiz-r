@@ -93,3 +93,9 @@ print(f"Converged: {solution.converged}")
 - See [Getting Started](getting-started.md) for environment setup and verification.
 - Browse [Examples](examples.md) for code snippets per optimizer.
 - Deep dive into algorithms in [Algorithms](algorithms/differential_evolution.md).
+
+## Notebook status and reproducibility
+
+- Audit (2025-01-04): 6/7 notebooks execute cleanly; `03_optimal_control_tutorial.ipynb` is theory-only by design.
+- Fully validated: `01_hmm_tutorial`, `02_mcmc_tutorial`, `04_real_world_applications`, `05_performance_benchmarks`, `mean_field_games_tutorial`.
+- Differential Evolution tutorial works with current API; enable `track_history=True` to capture convergence curves during runs.

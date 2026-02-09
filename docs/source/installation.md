@@ -83,6 +83,9 @@ Requires GCC or Clang:
 # Ubuntu/Debian
 sudo apt-get install build-essential
 
+# If you see OpenBLAS link errors during wheels/docs build
+sudo apt-get install libopenblas-dev
+
 # Fedora/RHEL
 sudo dnf install gcc gcc-c++
 ```
@@ -109,3 +112,7 @@ rustup update stable
 ```bash
 maturin develop --release -i python3.10  # Replace with your Python version
 ```
+
+**Issue**: BLAS/LAPACK linkage errors on Linux
+
+**Solution**: Install OpenBLAS headers (see Linux section above) and rebuild with `maturin develop --release`.

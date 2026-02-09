@@ -76,22 +76,38 @@ print(f"Best solution: {best_x}")
 
 ## Advanced Features
 
-### Adaptive jDE
-
-Enable self-adaptive F and CR parameters:
+### Adaptive control (jDE, SHADE-ready)
 
 ```python
 de = DifferentialEvolution(
     bounds=[(-5, 5)] * 20,
-    adaptive=True,  # Enable jDE
-    tau_F=0.1,      # F adaptation rate
-    tau_CR=0.1      # CR adaptation rate
+    adaptive=True,   # jDE by default
+    tau_F=0.1,
+    tau_CR=0.1,
 )
 ```
 
-### Constraint Handling
+- jDE is enabled when `adaptive=True` (self-adapts F, CR).
+- SHADE and L-SHADE are implemented in Rust (`shade.rs`) and ready to be wired into the Python API in an upcoming release; see `SHADE_IMPLEMENTATION.md` for details.
 
-For constrained optimization:
+### Parallel evaluation (Rust-only objectives)
+
+For pure Rust benchmarks or when you avoid Python callbacks, you can turn on data-parallel evaluation (Rayon-based) via the Rust entry point:
+
+```python
+from optimizr import parallel_differential_evolution_rust
+
+best = parallel_differential_evolution_rust(
+    objective_name="rastrigin",  # sphere, rosenbrock, ackley, griewank
+    bounds=[(-5, 5)] * 20,
+    maxiter=500,
+    parallel=True,
+)
+```
+
+This yields 10–100× speedups on multi-core for built-in objectives (no GIL contention).
+
+### Constraint handling
 
 ```python
 def constraints(x):
@@ -121,6 +137,10 @@ de = DifferentialEvolution(
    - Unknown landscape → `rand/1/bin` or `rand/2/bin`
    - Smooth, unimodal → `best/1/bin`
    - Multimodal, deceptive → `current-to-best/1/bin`
+
+### Pipeline integrations
+- **Time-series workflows**: couple DE with `timeseries_utils` (rolling Hurst/half-life) to optimize strategy thresholds.
+- **Grid search fallback**: for separable problems, try `grid_search` first; switch to DE when interactions matter.
 
 ## Benchmarks
 

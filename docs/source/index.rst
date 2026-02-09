@@ -72,6 +72,8 @@ Features
 - **Sparse Optimization**: Sparse PCA, Box-Tao decomposition, Elastic Net, ADMM
 - **Risk Metrics**: Hurst exponent, half-life estimation, time series analysis
 - **Information Theory**: Mutual information, Shannon entropy, feature selection
+- **Time-Series Helpers**: Rolling Hurst/half-life, feature prep for HMM, lagged feature builders
+- **Parallelization**: Rust-native population evaluation with Rayon for built-in objectives
 
 🚀 **Performance:**
 

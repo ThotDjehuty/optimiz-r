@@ -1,6 +1,8 @@
 # OptimizR 🚀
 
-![OptimizR Logo](docs/source/logo_optimizr_valid.png)
+<p align="center">
+    <img src="docs/source/logo_optimizr_valid.png" alt="OptimizR Logo" width="220" />
+</p>
 
 **High-performance optimization algorithms in Rust with Python bindings**
 

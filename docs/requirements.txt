@@ -1,5 +1,6 @@
-# Python dependencies for building documentation
-sphinx>=7.0.0
-furo>=2023.9.10
-myst-parser>=2.0.0
-sphinx-autodoc-typehints>=1.24.0
+# Python dependencies for building documentation (pinned for RTD compatibility)
+sphinx>=7.0.0,<8.0.0
+furo==2023.9.10
+myst-parser==2.0.0
+sphinx-autodoc-typehints==1.24.0
+charset-normalizer>=3.4.0

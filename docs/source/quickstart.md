@@ -1,125 +1,95 @@
 # Quick Start Guide
 
-## Your First Optimization
+## 1. Verify Installation
 
-Let's optimize the classic **Rosenbrock function** using Differential Evolution:
+```bash
+python -c "import optimizr; print(optimizr.__version__)"
+```
+
+You should see `0.3.0` (or newer). If the Rust backend is missing, reinstall with `pip install .` from the project root to build the extension module.
+
+## 2. First Optimization (Differential Evolution)
 
 ```python
 import numpy as np
-from optimizr import DifferentialEvolution
+from optimizr import differential_evolution
 
-# Define the Rosenbrock function
-def rosenbrock(x):
+def rosenbrock(x: np.ndarray) -> float:
     return sum(100.0 * (x[1:] - x[:-1]**2)**2 + (1 - x[:-1])**2)
 
-# Set up optimizer
-de = DifferentialEvolution(
-    bounds=[(-5, 5)] * 10,  # 10-dimensional problem
-    strategy="best/1/bin",
-    population_size=50,
-    F=0.8,
-    CR=0.9
+best_x, best_fx = differential_evolution(
+    objective_fn=rosenbrock,
+    bounds=[(-5, 5)] * 5,
+    strategy="best1",
+    adaptive=True,
+    maxiter=500,
 )
 
-# Run optimization
-result = de.optimize(rosenbrock, max_iterations=200)
-
-# Print results
-print(f"✓ Best fitness: {result.best_fitness:.6f}")
-print(f"✓ Best solution: {result.best_solution}")
-print(f"✓ Converged in {result.iterations} iterations")
+print(f"Best value: {best_fx:.6f}")
+print(f"Best point: {best_x}")
 ```
 
-**Expected output:**
-```
-✓ Best fitness: 0.000002
-✓ Best solution: [1.0, 1.0, 1.0, ..., 1.0]
-✓ Converged in 174 iterations
-```
-
-## Mean Field Games Example
-
-Solve a **1D Mean Field Game** (agent population dynamics):
-
-```python
-from optimizr import MFGSolver
-
-# Define parameters
-solver = MFGSolver(
-    nx=100,           # Spatial grid points
-    nt=50,            # Time steps
-    x_min=-5.0,       
-    x_max=5.0,
-    T=1.0,            # Terminal time
-    epsilon=0.1,      # Noise intensity
-    kappa=1.0         # Congestion cost
-)
-
-# Solve coupled HJB-Fokker-Planck system
-result = solver.solve()
-
-# Access solution
-print(f"Value function shape: {result.value_function.shape}")  # (50, 100)
-print(f"Density shape: {result.density.shape}")               # (50, 100)
-print(f"Converged: {result.converged}")
-```
-
-## Hidden Markov Model Example
-
-Train an **HMM** on observed data:
+## 3. Hidden Markov Model (Regime Detection)
 
 ```python
 import numpy as np
-from optimizr import HMMGaussian
+from optimizr import HMM
 
-# Generate synthetic data (2 hidden states, 1D observations)
-np.random.seed(42)
-observations = np.random.randn(1000, 1)
+returns = np.concatenate([
+    np.random.normal(0.01, 0.02, 400),
+    np.random.normal(-0.01, 0.03, 400),
+])
 
-# Initialize HMM
-hmm = HMMGaussian(n_states=2, n_features=1)
-
-# Train model
-hmm.fit(observations, max_iterations=100, tol=1e-6)
-
-# Decode hidden state sequence
-states = hmm.decode(observations)
-print(f"Predicted states: {states[:20]}") # First 20 states
+model = HMM(n_states=2).fit(returns, n_iterations=80)
+states = model.predict(returns)
+print(np.bincount(states))
 ```
 
-## MCMC Sampling Example
-
-Sample from a **posterior distribution**:
+## 4. MCMC Sampling (Bayesian Inference)
 
 ```python
 import numpy as np
-from optimizr import MetropolisHastings
+from optimizr import mcmc_sample
 
-# Define log-posterior (unnormalized)
-def log_posterior(x):
-    # Gaussian prior: N(0, 1)
-    prior = -0.5 * np.sum(x**2)
-    # Likelihood: N(2, 0.5)
-    likelihood = -0.5 * np.sum((x - 2)**2) / 0.25
-    return prior + likelihood
+def log_likelihood(params, data):
+    mu, sigma = params
+    residuals = (data - mu) / sigma
+    return -0.5 * np.sum(residuals**2) - len(data) * np.log(sigma)
 
-# Initialize sampler
-sampler = MetropolisHastings(
-    log_prob_fn=log_posterior,
-    initial_state=np.zeros(5),
-    proposal_scale=0.5
+data = np.random.randn(500) + 1.5
+samples = mcmc_sample(
+    log_likelihood_fn=log_likelihood,
+    data=data,
+    initial_params=np.array([0.0, 1.0]),
+    param_bounds=[(-5, 5), (0.1, 5.0)],
+    n_samples=5000,
+    burn_in=500,
 )
 
-# Generate samples
-samples = sampler.sample(n_samples=10000, burn_in=1000)
+print(samples.mean(axis=0))
+```
 
-print(f"Posterior mean: {samples.mean(axis=0)}")  # ~[1.6, 1.6, ...]
-print(f"Acceptance rate: {sampler.acceptance_rate:.2%}")
+## 5. Mean Field Games (1D)
+
+```python
+from optimizr import MFGConfig, solve_mfg_1d_rust
+
+config = MFGConfig(
+    nx=64,
+    nt=40,
+    x_min=-3.0,
+    x_max=3.0,
+    T=1.0,
+    epsilon=0.1,
+    kappa=1.0,
+)
+
+solution = solve_mfg_1d_rust(config)
+print(f"Converged: {solution.converged}")
 ```
 
 ## Next Steps
 
-- **Explore algorithms**: See [Algorithms](algorithms/differential_evolution.md) for detailed guides
-- **API reference**: Check [API Reference](api/differential_evolution.md) for all parameters
-- **Examples**: Browse [examples/](https://github.com/ThotDjehuty/optimiz-r/tree/main/examples) for Jupyter notebooks
-- **Benchmarks**: See [Benchmarks](benchmarks.md) for performance comparisons
+- See [Getting Started](getting-started.md) for environment setup and verification.
+- Browse [Examples](examples.md) for code snippets per optimizer.
+- Deep dive into algorithms in [Algorithms](algorithms/differential_evolution.md).

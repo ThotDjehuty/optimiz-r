@@ -94,9 +94,9 @@ publish:  ## Publish to PyPI
 	@echo "Publishing to PyPI..."
 	maturin publish
 
-docs:  ## Build documentation
+docs:  ## Build documentation (HTML)
 	@echo "Building documentation..."
-	@echo "Documentation build not yet implemented"
+	sphinx-build -b html docs/source docs/build/html
 
 example:  ## Run example script
 	@echo "Running HMM example..."

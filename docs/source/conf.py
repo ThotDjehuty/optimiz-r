@@ -34,7 +34,8 @@ html_theme = 'furo'  # Modern, clean theme
 html_static_path = ['_static']
 html_title = 'OptimizR Documentation'
 html_short_title = 'OptimizR'
-html_logo = None  # Add logo if available
+html_logo = 'logo_optimizr_valid.png'
+html_favicon = 'logo_optimizr_valid.png'
 
 html_theme_options = {
     "light_css_variables": {

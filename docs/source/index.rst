@@ -19,6 +19,7 @@ OptimizR provides blazingly fast, production-ready implementations of advanced o
    :maxdepth: 2
    :caption: Getting Started
    
+   getting-started
    installation
    quickstart
    examples
@@ -33,17 +34,20 @@ OptimizR provides blazingly fast, production-ready implementations of advanced o
    algorithms/mcmc
    algorithms/sparse_optimization
    algorithms/optimal_control
+   algorithms/risk_metrics
+   algorithms/grid_search
 
 .. toctree::
    :maxdepth: 2
    :caption: API Reference
    
    api/differential_evolution
-   api/mean_field_games
+   api/grid_search
    api/hmm
    api/mcmc
    api/sparse
    api/optimal_control
+   api/risk_metrics
 
 .. toctree::
    :maxdepth: 1

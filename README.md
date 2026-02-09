@@ -1,5 +1,7 @@
 # OptimizR 🚀
 
+![OptimizR Logo](docs/source/logo_optimizr_valid.png)
+
 **High-performance optimization algorithms in Rust with Python bindings**
 
 [![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/ThotDjehuty/optimiz-r/releases)

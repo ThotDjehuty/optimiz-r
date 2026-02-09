@@ -1,152 +1,122 @@
 # Examples
 
-This page lists all available examples and tutorials for OptimizR.
+Practical snippets for every OptimizR component.
 
-## Jupyter Notebooks
-
-All notebooks are located in the [examples/](https://github.com/ThotDjehuty/optimiz-r/tree/main/examples) directory.
-
-### 1. Differential Evolution
-
-**File**: `01_differential_evolution_tutorial.ipynb`
-
-Learn how to use the Differential Evolution optimizer:
-- Basic optimization problems (Rosenbrock, Rastrigin, Ackley)
-- Strategy comparison (rand/1, best/1, current-to-best/1)
-- Parameter tuning (F, CR, population size)
-- Convergence analysis and visualization
-
-### 2. Mean Field Games
-
-**File**: `02_mean_field_games_tutorial.ipynb`
-
-Solve 1D Mean Field Games:
-- HJB-Fokker-Planck coupling
-- Agent population dynamics
-- Nash equilibrium computation
-- 3D visualization (time × space × density)
-
-### 3. Hidden Markov Models
-
-**File**: `03_hmm_tutorial.ipynb`
-
-Train and apply HMMs:
-- Baum-Welch training algorithm
-- Viterbi decoding
-- Gaussian emission models
-- Real-world applications (regime detection, speech recognition)
-
-### 4. MCMC Sampling
-
-**File**: `04_mcmc_tutorial.ipynb`
-
-Bayesian inference with Metropolis-Hastings:
-- Sampling from complex distributions
-- Adaptive proposal tuning
-- Convergence diagnostics
-- Posterior analysis
-
-### 5. Sparse Optimization
-
-**File**: `05_sparse_optimization_tutorial.ipynb`
-
-Sparse methods for high-dimensional data:
-- Sparse PCA
-- Elastic Net
-- ADMM solver
-- Feature selection
-
-### 6. Optimal Control
-
-**File**: `06_optimal_control_tutorial.ipynb`
-
-Solve HJB equations:
-- Regime-switching jump diffusions (MRSJD)
-- Optimal stopping problems
-- Dynamic programming
-- Financial applications
-
-### 7. Risk Metrics
-
-**File**: `07_risk_metrics_tutorial.ipynb`
-
-Time series analysis:
-- Hurst exponent estimation
-- Half-life calculation
-- Mean reversion testing
-- Trading signal generation
-
-## Python Scripts
-
-Quick examples for copy-paste usage:
-
-### Optimize Rosenbrock Function
+## Differential Evolution (global optimization)
 
 ```python
 import numpy as np
-from optimizr import DifferentialEvolution
+from optimizr import differential_evolution
 
-def rosenbrock(x):
-    return sum(100.0 * (x[1:] - x[:-1]**2)**2 + (1 - x[:-1])**2)
+def sphere(x):
+    return np.sum(x**2)
 
-de = DifferentialEvolution(bounds=[(-5, 5)] * 10)
-result = de.optimize(rosenbrock, max_iterations=200)
+best_x, best_fx = differential_evolution(
+    objective_fn=sphere,
+    bounds=[(-10, 10)] * 5,
+    strategy="rand1",
+    maxiter=300,
+    adaptive=True,
+)
 
-print(f"Minimum: {result.best_fitness}")
+print(best_fx)
 ```
 
-### Train HMM on Data
+## Grid Search (hyper-parameter sweep)
+
+```python
+from optimizr import grid_search
+
+def objective(params):
+    lr, momentum = params["lr"], params["momentum"]
+    return (lr - 0.05)**2 + (momentum - 0.9)**2
+
+best_params, best_score = grid_search(
+    objective_fn=objective,
+    param_grid={"lr": [0.01, 0.05, 0.1], "momentum": [0.8, 0.9, 0.95]},
+)
+
+print(best_params, best_score)
+```
+
+## Hidden Markov Models (regime detection)
 
 ```python
 import numpy as np
-from optimizr import HMMGaussian
+from optimizr import HMM
 
-# Load your data
-observations = np.load("data.npy")
+returns = np.random.randn(800) * 0.02 + 0.005
+returns[400:] -= 0.015  # regime shift
 
-# Train model
-hmm = HMMGaussian(n_states=3)
-hmm.fit(observations)
-
-# Predict states
-states = hmm.decode(observations)
+model = HMM(n_states=2).fit(returns)
+states = model.predict(returns)
+print(np.bincount(states))
 ```
 
-### MCMC Sampling
+## MCMC (posterior sampling)
 
 ```python
 import numpy as np
-from optimizr import MetropolisHastings
+from optimizr import mcmc_sample
 
-def log_posterior(x):
-    return -0.5 * np.sum((x - 2)**2)
+def log_likelihood(params, data):
+    mu, sigma = params
+    residuals = (data - mu) / sigma
+    return -0.5 * np.sum(residuals**2) - len(data) * np.log(sigma)
 
-sampler = MetropolisHastings(log_posterior, initial_state=np.zeros(5))
-samples = sampler.sample(n_samples=10000)
+data = np.random.randn(500) + 1.0
+samples = mcmc_sample(
+    log_likelihood_fn=log_likelihood,
+    data=data,
+    initial_params=np.array([0.0, 1.0]),
+    param_bounds=[(-5, 5), (0.1, 5.0)],
+)
+print(samples.mean(axis=0))
 ```
 
-## Running Examples
+## Mean Field Games (1D solver)
 
-To run notebooks:
+```python
+from optimizr import MFGConfig, solve_mfg_1d_rust
 
-```bash
-cd examples/
-jupyter notebook
+config = MFGConfig(nx=64, nt=32, x_min=-2.0, x_max=2.0, T=1.0, epsilon=0.1, kappa=1.0)
+solution = solve_mfg_1d_rust(config)
+print(solution.converged)
 ```
 
-To run Python scripts:
+## Sparse Optimization (Sparse PCA)
 
-```bash
-python examples/basic_optimization.py
+```python
+import numpy as np
+from optimizr import sparse_pca_py
+
+X = np.random.randn(200, 10)
+components = sparse_pca_py(X, n_components=3, l1_ratio=0.2)
+print(components.shape)
 ```
+
+## Risk Metrics (time series)
+
+```python
+import numpy as np
+from optimizr import hurst_exponent_py, estimate_half_life_py
+
+returns = np.random.randn(1000) * 0.01
+print("Hurst:", hurst_exponent_py(returns))
+print("Half-life:", estimate_half_life_py(returns))
+```
+
+## Notebooks
+
+- Differential Evolution: `examples/notebooks/03_differential_evolution_tutorial.ipynb`
+- Mean Field Games: `examples/notebooks/mean_field_games_tutorial.ipynb`
+- HMM: `examples/notebooks/01_hmm_tutorial.ipynb`
+- MCMC: `examples/notebooks/02_mcmc_tutorial.ipynb`
+- Optimal Control & Kalman: `examples/notebooks/03_optimal_control_tutorial.ipynb`
+- Performance benchmarks: `examples/notebooks/05_performance_benchmarks.ipynb`
 
 ## Contribute Examples
 
-Have a cool use case? Contribute your example:
-
-1. Fork the [repository](https://github.com/ThotDjehuty/optimiz-r)
-2. Add your notebook to `examples/`
-3. Ensure it runs without errors
-4. Submit a pull request
-
-See [Contributing Guide](contributing.md) for details.
+1. Fork the repository and add notebooks under `examples/notebooks/`
+2. Keep dependencies minimal (NumPy/Matplotlib preferred)
+3. Ensure the notebook runs end-to-end before submitting a PR

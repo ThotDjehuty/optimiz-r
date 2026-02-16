@@ -237,6 +237,14 @@ plt.tight_layout()
 plt.savefig('mfg_heatmaps.png', dpi=150)
 ```
 
+**Output:**
+
+This code generates two side-by-side heatmaps:
+- **Left plot**: Population density `m(x,t)` evolution over space and time
+- **Right plot**: Value function `u(x,t)` showing optimal value at each position and time
+
+For interactive visualization with complete outputs, see the [Mean Field Games Tutorial notebook](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/mean_field_games_tutorial.ipynb) on GitHub.
+
 ### Time Slices
 
 ```python
@@ -255,6 +263,12 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.savefig('mfg_time_slices.png', dpi=150)
 ```
+
+**Output:**
+
+This produces a line plot showing population density profiles at 5 different time points (t=0.0, 0.25, 0.5, 0.75, 1.0), illustrating how the population distribution evolves from initial to terminal conditions.
+
+📓 **Complete Examples**: See the [Mean Field Games Tutorial](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/mean_field_games_tutorial.ipynb) for interactive visualizations with real numerical solutions.
 
 ---
 
@@ -351,7 +365,7 @@ Good choices for `m0`:
 ## Notebook Tutorial
 
 For a complete walkthrough with validated outputs and visualizations, see the 
-Mean Field Games Tutorial notebook at `examples/notebooks/mean_field_games_tutorial.ipynb`.
+[Mean Field Games Tutorial notebook](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/mean_field_games_tutorial.ipynb) on GitHub.
 
 The notebook demonstrates:
 
@@ -361,4 +375,4 @@ The notebook demonstrates:
 - Interpreting convergence diagnostics
 - Comparing congestion levels
 
-Audit documentation is available at `docs/MFG_TUTORIAL_COMPLETE.md`.
+Audit documentation is available at [`docs/MFG_TUTORIAL_COMPLETE.md`](https://github.com/ThotDjehuty/optimiz-r/blob/main/docs/MFG_TUTORIAL_COMPLETE.md).

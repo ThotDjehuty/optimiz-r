@@ -108,15 +108,17 @@ print("Half-life:", estimate_half_life_py(returns))
 
 ## Notebooks
 
-- Differential Evolution: `examples/notebooks/03_differential_evolution_tutorial.ipynb`
-- Mean Field Games: `examples/notebooks/mean_field_games_tutorial.ipynb`
-- HMM: `examples/notebooks/01_hmm_tutorial.ipynb`
-- MCMC: `examples/notebooks/02_mcmc_tutorial.ipynb`
-- Optimal Control & Kalman: `examples/notebooks/03_optimal_control_tutorial.ipynb`
-- Performance benchmarks: `examples/notebooks/05_performance_benchmarks.ipynb`
+Explore interactive tutorials on GitHub:
+
+- **Differential Evolution**: [`03_differential_evolution_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/03_differential_evolution_tutorial.ipynb)
+- **Mean Field Games**: [`mean_field_games_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/mean_field_games_tutorial.ipynb)
+- **HMM**: [`01_hmm_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/01_hmm_tutorial.ipynb)
+- **MCMC**: [`02_mcmc_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/02_mcmc_tutorial.ipynb)
+- **Optimal Control & Kalman**: [`03_optimal_control_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/03_optimal_control_tutorial.ipynb)
+- **Performance Benchmarks**: [`05_performance_benchmarks.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/05_performance_benchmarks.ipynb)
 
 ## Contribute Examples
 
-1. Fork the repository and add notebooks under `examples/notebooks/`
+1. Fork the [repository](https://github.com/ThotDjehuty/optimiz-r) and add notebooks under `examples/notebooks/`
 2. Keep dependencies minimal (NumPy/Matplotlib preferred)
 3. Ensure the notebook runs end-to-end before submitting a PR

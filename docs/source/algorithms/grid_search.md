@@ -306,6 +306,20 @@ plt.title('Grid Search: Loss Surface')
 plt.savefig('grid_search_heatmap.png', dpi=150)
 ```
 
+**Output:**
+
+Produces a 2D heatmap showing the loss landscape across different hyperparameter combinations:
+- **X-axis**: Dropout rate values
+- **Y-axis**: Learning rate values
+- **Color intensity**: Loss values (darker = lower loss = better performance)
+
+This visualization helps identify optimal parameter regions and understand parameter interactions.
+
+📓 **Real-World Examples**: See [04_real_world_applications.ipynb](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/04_real_world_applications.ipynb) for grid search applied to:
+- Neural network hyperparameter tuning
+- Portfolio optimization
+- Trading strategy parameter selection
+
 ---
 
 ## Combining with Other Methods

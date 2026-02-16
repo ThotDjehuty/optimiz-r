@@ -448,6 +448,14 @@ plt.tight_layout()
 plt.savefig('hmm_states.png', dpi=150)
 ```
 
+**Output:**
+
+This visualization creates a two-panel plot:
+- **Top panel**: Returns time series showing price movements
+- **Bottom panel**: Decoded state sequence highlighting regime transitions (e.g., Bull/Bear markets)
+
+For complete examples with regime detection on real market data, see the [HMM Tutorial notebook](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/01_hmm_tutorial.ipynb).
+
 ### Transition Diagram
 
 ```python
@@ -468,6 +476,19 @@ nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 plt.title('HMM Transition Diagram')
 plt.savefig('hmm_transitions.png', dpi=150)
 ```
+
+**Output:**
+
+Generates a directed graph visualization showing:
+- **Nodes**: Hidden states (e.g., State 0, State 1)
+- **Edges**: Transition probabilities between states (labeled with probability values)
+- Only transitions with probability > 0.01 are shown for clarity
+
+📓 **Full Tutorial**: Explore [01_hmm_tutorial.ipynb](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/01_hmm_tutorial.ipynb) for hands-on examples including:
+- Multi-state regime detection
+- Volatility clustering analysis
+- Mean-reversion regime identification
+- Viterbi decoding in financial time series
 
 ---
 

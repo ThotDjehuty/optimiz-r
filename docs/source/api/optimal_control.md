@@ -114,4 +114,4 @@ log_likelihoods = result.get_log_likelihoods()
 
 **Conceptual picture:** Kalman filtering = prediction (dynamics prior) + correction (measurement residual). EKF linearizes $f, h$; UKF propagates sigma points for better nonlinear fidelity. RTS smoothing runs backward in time to refine all past states.
 
-See `examples/notebooks/03_optimal_control_tutorial.ipynb` for end-to-end usage combining HJB thresholds, OU estimation, and filtering.
+See [`examples/notebooks/03_optimal_control_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/03_optimal_control_tutorial.ipynb) for end-to-end usage combining HJB thresholds, OU estimation, and filtering.

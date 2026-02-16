@@ -1,6 +1,6 @@
 # Mean Field Games Tutorial (Production)
 
-This page summarizes the full MFG tutorial notebook (`examples/notebooks/mean_field_games_tutorial.ipynb`) and the accompanying audit in `docs/MFG_TUTORIAL_COMPLETE.md`.
+This page summarizes the full MFG tutorial notebook ([`mean_field_games_tutorial.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/mean_field_games_tutorial.ipynb)) and the accompanying audit in [`docs/MFG_TUTORIAL_COMPLETE.md`](https://github.com/ThotDjehuty/optimiz-r/blob/main/docs/MFG_TUTORIAL_COMPLETE.md).
 
 ## What the notebook demonstrates
 

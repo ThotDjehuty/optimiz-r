@@ -11,8 +11,8 @@ These results come from the Rust backends (release build) versus SciPy’s `diff
 
 **How to reproduce**
 
-- Run `examples/notebooks/05_performance_benchmarks.ipynb` (validated in CI) to regenerate figures and raw CSV metrics.
-- Or from the repo root, run `make benchmark` for the Rust-side microbenchmarks (no Python overhead).
+- Run [`examples/notebooks/05_performance_benchmarks.ipynb`](https://github.com/ThotDjehuty/optimiz-r/blob/main/examples/notebooks/05_performance_benchmarks.ipynb) (validated in CI) to regenerate figures and raw CSV metrics.
+- Or from the [repo root](https://github.com/ThotDjehuty/optimiz-r), run `make benchmark` for the Rust-side microbenchmarks (no Python overhead).
 - To compare against SciPy, set `SCIPY_BASELINE=1` in the notebook; it records wall-clock times and success percentages side by side.
 
 **What the notebook plots**

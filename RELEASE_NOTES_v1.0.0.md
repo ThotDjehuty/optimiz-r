@@ -45,9 +45,8 @@ pip install optimizr
   - Fixes cross-platform compatibility
 
 ### Metadata Updates
-- 👥 **Authors**: HFThot Research Lab <contact@hfthot-lab.eu>
+- 👥 **Authors**: HFThot Research Lab <admin@hfthot-lab.eu>
 - 🔗 **Repository**: https://github.com/ThotDjehuty/optimiz-r
-- 🏠 **Homepage**: https://hfthot-lab.eu
 - 📚 **Documentation**: https://optimiz-r.readthedocs.io
 
 ## 🚀 Features (Stable)
@@ -213,7 +212,6 @@ Inspired by:
 
 - **Issues**: [GitHub Issues](https://github.com/ThotDjehuty/optimiz-r/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/ThotDjehuty/optimiz-r/discussions)
-- **Website**: [HFThot Research Lab](https://hfthot-lab.eu)
 - **Email**: contact@hfthot-lab.eu
 
 ## 📄 License

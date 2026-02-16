@@ -56,7 +56,7 @@ Issues = "https://github.com/ThotDjehuty/optimiz-r/issues"
 [tool.maturin]
 python-source = "python"
 module-name = "optimizr._core"
-features = ["pyo3/extension-module"]
+features = ["python-bindings"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

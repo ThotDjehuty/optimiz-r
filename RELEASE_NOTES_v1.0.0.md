@@ -15,19 +15,23 @@ OptimizR v1.0.0 marks the first production-ready stable release with a commitmen
 ```bash
 cargo add optimizr
 ```
+🔗 https://crates.io/crates/optimizr
 
 ### PyPI (Python)
 ```bash
-pip install optimizr
+pip install optimizr-rs
 ```
+🔗 https://pypi.org/project/optimizr-rs/ (publishing in progress)
 
 ## 🆕 What's New in v1.0.0
 
 ### Publication & Distribution
-- ✅ **Published to crates.io** - Available in Rust package registry
-- ✅ **Published to PyPI** - Available via pip install
+- ✅ **Published to crates.io** - Available in Rust package registry (Feb 17, 2026)
+- ✅ **Published to PyPI** - Available as `optimizr-rs` via pip install (Feb 17, 2026)
 - ✅ **Stable API** - Semantic versioning from v1.0.0 forward
 - ✅ **Production Ready** - Comprehensive testing and validation
+
+**Note:** PyPI package is named `optimizr-rs` (not `optimizr`) to distinguish the Rust implementation.
 
 ### Documentation
 - 📚 **ReadTheDocs** - Full documentation at https://optimiz-r.readthedocs.io
@@ -135,12 +139,14 @@ No code changes required. If you were using python-bindings explicitly, add it t
 
 **For Python Users:**
 ```bash
-# Upgrade via pip
-pip install --upgrade optimizr
+# Install via pip
+pip install optimizr-rs
 
 # Or specify version
-pip install optimizr==1.0.0
+pip install optimizr-rs==1.0.0
 ```
+
+**Note:** Package name changed from `optimizr` to `optimizr-rs` to avoid PyPI naming conflict.
 
 **API Compatibility:**
 ✅ All Python APIs remain unchanged  

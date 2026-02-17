@@ -1,5 +1,5 @@
 [package]
-name = "optimizr"
+name = "optimiz-rs"
 version = "1.0.0"
 edition = "2021"
 authors = ["HFThot Research Lab <contact@hfthot-lab.eu>"]

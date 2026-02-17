@@ -52,7 +52,7 @@ OptimizR provides blazingly fast, production-ready implementations of advanced o
 ### From PyPI (Python)
 
 ```bash
-pip install optimizr-rs
+pip install optimiz-rs
 ```
 
 ### From crates.io (Rust)

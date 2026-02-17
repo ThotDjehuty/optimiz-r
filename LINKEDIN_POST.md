@@ -31,7 +31,7 @@ OptimizR brings blazing-fast implementations of advanced algorithms to data scie
 
 Python:
 ```bash
-pip install optimizr-rs
+pip install optimiz-rs
 ```
 
 Rust:
@@ -64,5 +64,5 @@ I'd love your feedback, contributions, and star on GitHub! ⭐
 
 🔗 GitHub: https://github.com/ThotDjehuty/optimiz-r
 📚 Docs: https://optimiz-r.readthedocs.io
-📦 PyPI: https://pypi.org/project/optimizr-rs/ (publishing soon)
+📦 PyPI: https://pypi.org/project/optimiz-rs/
 📦 crates.io: https://crates.io/crates/optimizr

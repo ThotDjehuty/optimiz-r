@@ -85,7 +85,7 @@ ERROR HTTPError: 403 Forbidden from https://upload.pypi.org/legacy/
 **Solutions:**
 
 1. **Option A: Use Different Package Name** (Recommended)
-   - `optimizr-rs` - Rust variant naming
+   - `optimiz-rs` - Rust variant naming
    - `optimizr-hft` - HFT-focused variant
    - `hfthot-optimizr` - Branded name
    - `rustimizr` - Play on "Rust optimization"
@@ -94,13 +94,13 @@ ERROR HTTPError: 403 Forbidden from https://upload.pypi.org/legacy/
    ```bash
    # 1. Update pyproject.toml
    [project]
-   name = "optimizr-rs"  # New name
+   name = "optimiz-rs"  # New name
    
    # 2. Rebuild wheel
    maturin build --release
    
    # 3. Upload to PyPI
-   twine upload target/wheels/optimizr_rs-1.0.0-*.whl -u ThotDjehuty -p "..."
+   twine upload target/wheels/optimiz_rs-1.0.0-*.whl -u ThotDjehuty -p "..."
    ```
 
 2. **Option B: Contact Current Owner**
@@ -157,7 +157,7 @@ ERROR HTTPError: 403 Forbidden from https://upload.pypi.org/legacy/
 
 ## 🎯 Recommended Package Name
 
-**Suggested:** `optimizr-rs`
+**Suggested:** `optimiz-rs`
 
 **Rationale:**
 - Clear that it's the Rust implementation
@@ -167,8 +167,8 @@ ERROR HTTPError: 403 Forbidden from https://upload.pypi.org/legacy/
 - Available on PyPI (checked)
 
 **Update locations:**
-1. `pyproject.toml` → `name = "optimizr-rs"`
-2. `README.md` → `pip install optimizr-rs`
+1. `pyproject.toml` → `name = "optimiz-rs"`
+2. `README.md` → `pip install optimiz-rs`
 3. `docs/source/installation.rst` → Update pip command
 4. `LINKEDIN_POST.md` → Update installation instructions
 5. `RELEASE_NOTES_v1.0.0.md` → Update PyPI references

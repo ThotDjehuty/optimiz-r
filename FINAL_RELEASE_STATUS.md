@@ -33,15 +33,15 @@
 ## ⏳ PENDING - PyPI Publication
 
 ### Package Details
-- **Name:** `optimizr-rs` (chosen to avoid conflict with existing "optimizr")
-- **Wheel:** Built and ready at `target/wheels/optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl`
+- **Name:** `optimiz-rs` (chosen to avoid conflict with existing "optimizr")
+- **Wheel:** Built and ready at `target/wheels/optimiz_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl`
 - **Size:** 615.3 KB
 
-### Why "optimizr-rs"?
+### Why "optimiz-rs"?
 PyPI package names are case-insensitive and normalize punctuation:
 - ❌ `optimizR` → normalizes to `optimizr` (conflicts with v1.4.7)
 - ❌ `optimiz-r` → normalizes to `optimizr` (conflicts)
-- ✅ `optimizr-rs` → unique, professional, clear Rust variant
+- ✅ `optimiz-rs` → unique, professional, clear Rust variant
 
 ### Blocker: API Token Required
 
@@ -62,7 +62,7 @@ Visit: https://pypi.org/account/login/
 Visit: https://pypi.org/manage/account/token/
 
 Click **"Add API token"**:
-- **Token name:** `optimizr-rs-publishing`
+- **Token name:** `optimiz-rs-publishing`
 - **Scope:** "Entire account"
 - Click **"Add token"**
 
@@ -74,7 +74,7 @@ It will look like: `pypi-AgEIcHlwaS5vcmc...` (very long)
 ```bash
 cd /Users/melvinalvarez/Documents/Workspace/optimiz-r
 
-twine upload target/wheels/optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
+twine upload target/wheels/optimiz_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
   -u __token__ \
   -p pypi-YOUR_COPIED_TOKEN_HERE
 ```
@@ -84,8 +84,8 @@ twine upload target/wheels/optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
 ### Step 4: Verify
 
 After successful upload:
-- Package URL: https://pypi.org/project/optimizr-rs/
-- Test install: `pip install optimizr-rs`
+- Package URL: https://pypi.org/project/optimiz-rs/
+- Test install: `pip install optimiz-rs`
 
 ---
 
@@ -160,7 +160,7 @@ After getting your PyPI API token, just run:
 
 ```bash
 cd /Users/melvinalvarez/Documents/Workspace/optimiz-r && \
-twine upload target/wheels/optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
+twine upload target/wheels/optimiz_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
   -u __token__ -p YOUR_TOKEN_HERE
 ```
 

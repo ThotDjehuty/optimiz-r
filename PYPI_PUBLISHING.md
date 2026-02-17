@@ -1,8 +1,8 @@
 # PyPI Publishing Instructions
 
 ## Current Status
-- ✅ Package built: `optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl`
-- ✅ Package name: `optimizr-rs` (to avoid conflict with existing "optimizr")
+- ✅ Package built: `optimiz_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl`
+- ✅ Package name: `optimiz-rs` (to avoid conflict with existing "optimizr")
 - ❌ Need PyPI API token (username/password auth deprecated)
 
 ## Steps to Publish
@@ -15,7 +15,7 @@
 
 2. Create API token: https://pypi.org/manage/account/token/
    - Click "Add API token"
-   - Token name: `optimizr-rs-publishing`
+   - Token name: `optimiz-rs-publishing`
    - Scope: "Entire account" (can limit to project later)
    - **IMPORTANT:** Copy the token immediately (starts with `pypi-`)
    - Store securely (won't be shown again)
@@ -26,7 +26,7 @@
 cd /Users/melvinalvarez/Documents/Workspace/optimiz-r
 
 # Upload with API token
-twine upload target/wheels/optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
+twine upload target/wheels/optimiz_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
   -u __token__ \
   -p pypi-YOUR_TOKEN_HERE
 ```
@@ -36,8 +36,8 @@ twine upload target/wheels/optimizr_rs-1.0.0-cp38-abi3-macosx_10_12_x86_64.whl \
 ### 3. Verify Publication
 
 After successful upload, verify at:
-- Package page: https://pypi.org/project/optimizr-rs/
-- Test install: `pip install optimizr-rs`
+- Package page: https://pypi.org/project/optimiz-rs/
+- Test install: `pip install optimiz-rs`
 
 ### 4. Update Documentation
 
@@ -62,7 +62,7 @@ EOF
 chmod 600 ~/.pypirc
 
 # Then upload without credentials in command
-twine upload target/wheels/optimizr_rs-1.0.0-*.whl
+twine upload target/wheels/optimiz_rs-1.0.0-*.whl
 ```
 
 ## Troubleshooting
@@ -73,7 +73,7 @@ twine upload target/wheels/optimizr_rs-1.0.0-*.whl
 - Ensure username is `__token__` (not your actual username)
 
 **Package name conflict:**
-- Already handled - using `optimizr-rs`
+- Already handled - using `optimiz-rs`
 - Cannot use `optimizr`, `optimiz-r`, or `optimizR` (all normalize to "optimizr")
 
 **Token not working:**
